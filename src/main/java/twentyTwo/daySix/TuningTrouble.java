@@ -11,16 +11,13 @@ public class TuningTrouble {
 	private static final int START_OF_PACKET_MARKER  = 4;
 	private static final int START_OF_MESSAGE_MARKER = 14;
 
-	public static void main(String[] args) {
-		try (Stream<String> lines = Files.lines(Path.of("src/main/resources/tuningTrouble.txt"), StandardCharsets.UTF_8)) {
-			String input = lines.collect(Collectors.joining());
-			int packetMarkerCharCount = getCharacterCount(START_OF_PACKET_MARKER, input);
-			int messageMarkerCharCount = getCharacterCount(START_OF_MESSAGE_MARKER, input);
-			System.out.println("Characters need to be processed before the first start of packet: " + packetMarkerCharCount);
-			System.out.println("Characters need to be processed before the first start of message: " + messageMarkerCharCount);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws IOException {
+		Stream<String> lines = Files.lines(Path.of("src/main/resources/tuningTrouble.txt"), StandardCharsets.UTF_8);
+		String input = lines.collect(Collectors.joining());
+		int packetMarkerCharCount = getCharacterCount(START_OF_PACKET_MARKER, input);
+		int messageMarkerCharCount = getCharacterCount(START_OF_MESSAGE_MARKER, input);
+		System.out.println("Characters need to be processed before the first start of packet: " + packetMarkerCharCount);
+		System.out.println("Characters need to be processed before the first start of message: " + messageMarkerCharCount);
 	}
 
 	private static int getCharacterCount(int characterCount, String input) {
